@@ -9,20 +9,19 @@
     </head>
     <body>
         <h1>JS tutorial example</h1>
+        <button onclick = "addEvent()">Add to planner</button>
         <div id "content">
-
             <p>Hello world</p>
-            <p id = "addEvent">[   Click to add to planner   ]</p>
+            
             <p id = "main_body">
                 <pre>
-                    <script>const events = new Array(36).fill("");</script>
+                    <script>const events = new Array(36).fill("&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;");</script>
                     <script src="test.js"></script>
                 </pre>
             </p>
             <p id = "calender">
-                <pre>
                     <script src="calender.js"></script>
-                </pre>
+                    <script>writeCalender()</script>
             </p>
         </div>
         

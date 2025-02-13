@@ -1,13 +1,5 @@
 var i;
 var j;
-document.getElementById("addEvent").onclick = function() {addEvent()};
-
-function writeCalender()
-{
-    
-}
-
-writeCalender()
 
 function addEvent()
 {
@@ -22,7 +14,11 @@ function addEvent()
     {
         let event = prompt("Enter the event you wish to add to the calender:");
         events[date] = `${event}`;
-        document.getElementById("calender").reset()
+        for (i = 0; i < 19-event.length; i = i + 1)
+        {
+            events[date] += "&#160;";
+        }
+        document.getElementById("calender").innerHTML = "";
         writeCalender()
     }
 }
