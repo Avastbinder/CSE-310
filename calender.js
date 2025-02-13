@@ -1,6 +1,8 @@
 var i = 0;
 var j = 0;
 
+
+
 document.write("\n")
 for (i = 1; i < 282; i++)
 {
