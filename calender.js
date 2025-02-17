@@ -1,10 +1,10 @@
 var i = 0;
 var j = 0;
 
-const events = new Array(72).fill("&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;");
+const events = new Array(72).fill("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;");
 const button = document.createElement("button");
 button.setAttribute("onclick", `addEvent();`);
-button.textContent = "Click";
+button.textContent = "Click to add to planner";
 
 function addEvent()
 {
@@ -18,25 +18,27 @@ function addEvent()
     else
     {
         let event = prompt("Enter the event you wish to add to the calender:");
-        
-        if (event.length > 19)
-        {
-            events[(date*2)] = `${event.slice(0, 19)}`;
-            events[(date*2)+1] = `${event.slice(20, -1)}`;
 
-            for (var i = 0; i < 19-events[(date*2)+1].length; i = i + 1)
+        if (event.length > 9)
+        {
+            var event1 = event.slice(0, 9);
+            var event2 = event.slice(9, 18);
+
+            events[(date*2)] = event1 + "&nbsp;";
+            events[(date*2)+1] = event2;
+
+            for (var i = 0; i < 10 - (event2.length); i++) 
             {
-                events[(date*2)+1] += "&#160;";
+                events[(date*2)+1] += "&nbsp;";
             }
         }
         else
         {
-           events[(date*2)] = `${event}`; 
-        }
-    
-        for (var i = 0; i < 19-(events[date*2].length); i = i + 1)
-        {
-            events[date*2] += "&#160;";
+            events[date*2] = event;
+            for (var i = 0; i < 10 - (event.length); i++) 
+            {
+                events[date*2] += "&nbsp;";
+            }
         }
 
         document.getElementById("calender").innerHTML = "";
@@ -46,15 +48,18 @@ function addEvent()
 
 function writeCalender()
 {
+    const d = new Date();
+    let day = d.getDate();
+
     let html = "<br/>";
-    for (i = 1; i < 75; i++)
+    for (i = 1; i < 90; i++)
     {
         html += `=`
     }
 
-    html += `<br/>|&#160;w&#160;|&emsp;Monday&emsp;|&emsp;Tuesday&emsp;|&emsp;Wednesday&emsp;|&emsp;Thursday&emsp;|&emsp;Friday&emsp;|&emsp;Saturday&emsp;|&emsp;Sunday&emsp;|<br/>`;
+    html += `<br/>|&nbsp;w&nbsp;|&nbsp;&nbsp;Monday&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;Tuesday&nbsp;&nbsp;|&nbsp;Wednesday&nbsp;|&nbsp;Thursday&nbsp;&nbsp;|&nbsp;&nbsp;Friday&nbsp;&nbsp;&nbsp;|&nbsp;Saturday&nbsp;&nbsp;|&nbsp;&nbsp;Sunday&nbsp;&nbsp;&nbsp;|<br/>`;
 
-    for (i = 1; i < 75; i++)
+    for (i = 1; i < 90; i++)
     {
         html += `=`
     }
@@ -62,40 +67,52 @@ function writeCalender()
 
     for (i = 0; i<5; i++)
     {
-        html += `|&#160;&#160;&#160;&#160;`
+        html += `|&nbsp;&nbsp;&nbsp;`
         for (j = 1; j<=7; j++)
         {
-            if ((i*7)+j < 10)
+            var is_today;
+            if ((i*7)+j == day)
             {
-                html += `|&#160;${(i*7)+j}&#160;&#160;&#160;&emsp;&emsp;&emsp;&emsp;`
+                is_today = "Today";
             }
             else
             {
-                html += `|&#160;${(i*7)+j}&#160;&emsp;&emsp;&emsp;&emsp;`
+                is_today = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
+            }
+            
+            if ((i*7)+j < 10)
+            {
+                html += `|&nbsp;${(i*7)+j}&nbsp;` + is_today + `&nbsp;&nbsp;&nbsp;`
+            }
+            else
+            {
+                html += `|&nbsp;${(i*7)+j}&nbsp;` + is_today + `&nbsp;&nbsp;`
             }
         }
         html += `|<br/>`
 
-        html += `|&#160;${i+1}&#160;`
+        html += `|&nbsp;${i+1}&nbsp;`
         for (j = 1; j<=7; j++)
         {
-            html += `|&#160;${events[(((i*7)+j)*2)]}`
+            html += `|&nbsp;${events[(((i*7)+j)*2)]}`
         }
         html += `|<br/>`
 
-        html += `|&#160;${i+1}&#160;`
+        html += `|&nbsp;&nbsp;&nbsp;`
         for (j = 1; j<=7; j++)
         {
-            html += `|&#160;${events[(((i*7)+j)*2)+1]}`
+            html += `|&nbsp;${events[(((i*7)+j)*2)+1]}`
         }
         html += `|<br/>`
 
-        for (j = 1; j < 126; j++)
+        for (j = 1; j < 90; j++)
         {
             html += `-`
         }
         html += `<br/>`
     }
-    document.body.append(button);
+    document.body.prepend(button);
     document.getElementById("calender").innerHTML += html
 }
+
+writeCalender()
