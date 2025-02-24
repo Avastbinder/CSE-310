@@ -52,12 +52,6 @@ function writeCalender()
     let day = d.getDate();
 
     let html = "<br/>";
-    for (i = 1; i < 90; i++)
-    {
-        html += `=`
-    }
-
-    html += `<br/>|&nbsp;w&nbsp;|&nbsp;&nbsp;Monday&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;Tuesday&nbsp;&nbsp;|&nbsp;Wednesday&nbsp;|&nbsp;Thursday&nbsp;&nbsp;|&nbsp;&nbsp;Friday&nbsp;&nbsp;&nbsp;|&nbsp;Saturday&nbsp;&nbsp;|&nbsp;&nbsp;Sunday&nbsp;&nbsp;&nbsp;|<br/>`;
 
     for (i = 1; i < 90; i++)
     {
@@ -86,7 +80,14 @@ function writeCalender()
             }
             else
             {
-                html += `|&nbsp;${(i*7)+j}&nbsp;` + is_today + `&nbsp;&nbsp;`
+                if ((i*7)+j > 31)
+                {
+                    html += `|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`
+                }
+                else
+                {
+                    html += `|&nbsp;${(i*7)+j}&nbsp;` + is_today + `&nbsp;&nbsp;`
+                }
             }
         }
         html += `|<br/>`
@@ -105,10 +106,21 @@ function writeCalender()
         }
         html += `|<br/>`
 
-        for (j = 1; j < 90; j++)
+        if (i == 4)
         {
-            html += `-`
+            for (i = 1; i < 90; i++)
+                {
+                    html += `=`
+                }
         }
+        else
+        {
+            for (j = 1; j < 90; j++)
+            {
+                html += `-`
+            }
+        }
+        
         html += `<br/>`
     }
     document.body.prepend(button);

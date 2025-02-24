@@ -1,0 +1,10 @@
+[package]
+name = "weather-app"
+version = "0.1.0"
+edition = "2024"
+
+[package.metadata.rust-analyzer] 
+rustc_private=true
+
+[dependencies]
+reqwest = "0.12.12"
